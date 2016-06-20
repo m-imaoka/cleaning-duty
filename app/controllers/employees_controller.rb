@@ -1,4 +1,8 @@
 class EmployeesController < ApplicationController
+  def index
+    render status: 200, json: Employee.all
+  end
+
   def create
     employee = Employee.new(create_params)
     if employee.save
