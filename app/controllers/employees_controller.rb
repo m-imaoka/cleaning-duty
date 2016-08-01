@@ -4,7 +4,7 @@ class EmployeesController < ApplicationController
   end
 
   def create
-    employee = Employee.new(create_params)
+    employee = Employee.new(employee_params)
     if employee.save
       render status: 201, json: { uri: employee_path(employee) }
     else
@@ -12,9 +12,18 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def update
+    employee = Employee.find(params[:id])
+    if employee.update_attributes(employee_params)
+      render status: 200, json: { uri: employee_path(employee) }
+    else
+      render status: 400, json: { errors: employee.errors.to_hash(true) }
+    end
+  end
+
   private
 
-  def create_params
+  def employee_params
     params.require(:employee).permit(
         :name,
         :sex
