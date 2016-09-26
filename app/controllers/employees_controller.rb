@@ -3,6 +3,11 @@ class EmployeesController < ApplicationController
     render status: 200, json: Employee.all
   end
 
+  def show
+    employee = Employee.find(params[:id])
+    render status: 200, json: employee.to_json 
+  end
+
   def create
     employee = Employee.new(employee_params)
     if employee.save
