@@ -26,6 +26,12 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def destroy
+    employee = Employee.find(params[:id])
+    employee.destroy
+    render status: 200
+  end
+
   private
 
   def employee_params
